@@ -1,0 +1,180 @@
+*{
+    margin: 0% ;
+    padding: 0% ;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    background-color: #f0f0f0;
+}
+.btn-black{
+    background-color: black;
+    color: white;
+    border: none;
+    height: 200px;
+    width: 60px;
+    margin: 1px;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    z-index: 2;
+    border-radius: 10px 10px;
+    text-align: center;
+    justify-content: center;
+}
+.btn-white{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    height: 300px;
+    width: 80px;
+    margin: 1px;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    z-index: 1;
+    border-radius:10px;
+}
+.btn-white:hover, .btn-black:hover{
+    cursor: pointer;
+    filter: brightness(90%);
+    transition: all 0.1s ease;
+}  
+
+.piano{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 400px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0,
+    0, 0.1);
+}
+
+h1{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+.btn-black:active, .btn-white:active{
+    transform: translateY(4px);
+}
+.btn-black:focus, .btn-white:focus{
+    outline: none;
+}
+.btn-black.playing, .btn-white.playing{
+    box-shadow: 0 0 15px #ff0;
+}
+p{
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+a{
+    color: #666;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline; 
+}
+a:visited{
+    color: #999;
+}
+a:active{
+    color: #333;
+}
+footer{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #999;
+}
+footer a{
+    color: #999;
+}
+footer a:hover{
+    color: #666;
+}
+
+footer a:visited{
+    color: #bbb;
+}
+footer a:active{
+    color: #333;
+}
+footer p{
+    font-size: 14px;
+}
+.piano-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+    border-radius: 10px;
+}
+.btn-black.ab3{
+    top: 0;
+    left:494px
+}
+.btn-black.ab4{
+    top: 0;
+    left: 580px;
+}
+.btn-black.bb3{
+    top:0;
+    left: 745px
+}
+.btn-black.db3{
+    top: 0;
+    left: 828px
+}
+.btn-black.eb3{
+    top: 0;
+    left: 910px;
+}
+.btn-black::before{
+    content: attr(data-key);
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: white;
+}
+.btn-white::before{
+    content: attr(data-key);
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: black;
+}   
+.btn-white.c3{
+    z-index: 0;
+}
+.btn-white.d3{
+    z-index: 0;
+}
+.btn-white.e3{
+    z-index: 0; 
+}
+.btn-white.f3{
+    z-index: 0;
+}
+.btn-white.g3{
+    z-index: 0;
+}
+.btn-white.a3{
+    z-index: 0;
+
+}
+.btn-white.b3{
+    z-index: 0;
+};
+
+
