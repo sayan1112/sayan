@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f6f3ff;
+            margin: 0;
+        }
+      #box {
+        width: 240px;
+        height: 420px;
+        background-color: #fff;
+        border: 2px solid #2b2b2b;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+        overflow: hidden;
+      }
+        #inner-box {
+            width: 30px;
+            height: 30px;
+            background-color: #e22;
+            border-radius: 2px;
+            position: absolute;
+            top: 50%;
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            visibility: visible;
+            opacity: 1;
+            transition: transform 150ms ease, left 150ms ease, top 150ms ease;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+        }
+        #box.show-inner #inner-box {
+            visibility: visible;
+            opacity: 1;
+        }
+        #box h1 {
+          margin: 8px 0 0 8px;
+          font-size: 13px;
+          position: absolute;
+          top: 6px;
+          left: 8px;
+          color: #000;
+          font-weight: 600;
+        }
+        #score {
+          display: inline-block;
+          min-width: 20px;
+          text-align: left;
+          font-weight: 700;
+          margin-left: 6px;
+        }
+
+    </style>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Box model game</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useEffect, useRef } = React;
+
+      function BoxGame() {
+        const boxRef = useRef(null);
+        const innerRef = useRef(null);
+        const scoreRef = useRef(null);
+
+        useEffect(() => {
+          const box = boxRef.current;
+          const inner = innerRef.current;
+          const scoreEl = scoreRef.current;
+          let score = 0;
+
+          function showInnerBriefly() {
+            const maxLeft = Math.max(0, box.clientWidth - inner.offsetWidth);
+            const maxTop = Math.max(0, box.clientHeight - inner.offsetHeight);
+            const left = Math.round(Math.random() * maxLeft);
+            const top = Math.round(Math.random() * maxTop);
+            inner.style.left = left + 'px';
+            inner.style.top = top + 'px';
+
+            box.classList.add('show-inner');
+            inner.setAttribute('aria-hidden', 'false');
+            clearTimeout(box._hideTimer);
+            box._hideTimer = setTimeout(() => {
+              box.classList.remove('show-inner');
+              inner.setAttribute('aria-hidden', 'true');
+            }, 500);
+          }
+
+          function handleClick() {
+            score += 1;
+            scoreEl.textContent = score;
+            showInnerBriefly();
+          }
+
+          box.addEventListener('click', handleClick);
+
+          function keyHandler(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleClick();
+            }
+          }
+          box.addEventListener('keydown', keyHandler);
+
+          return () => {
+            box.removeEventListener('click', handleClick);
+            box.removeEventListener('keydown', keyHandler);
+            clearTimeout(box._hideTimer);
+          };
+        }, []);
+
+        return (
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+            <div>
+              <h2 style={{textAlign: 'center'}}>Box Model Game</h2>
+              <div id="box" ref={boxRef} role="button" aria-pressed="false" tabIndex="0">
+                <h1>Score: <span id="score" ref={scoreRef}>0</span></h1>
+                <div id="inner-box" ref={innerRef} aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<BoxGame />);
+    </script>
+  </body>
+</html>
